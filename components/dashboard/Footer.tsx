@@ -3,7 +3,6 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import ReactCountryFlag from "react-country-flag";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -60,7 +59,9 @@ export default function Footer() {
                     <Typography variant="body2" color="textSecondary" className={classes.footerLink}>$USD</Typography>
                     <Typography variant="body2" color="textSecondary" className={classes.footerLink}>
                         Language
-                        <ReactCountryFlag style={{marginLeft: 5}} countryCode="US" />
+                        <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-round-250.png" 
+                            style={{marginLeft: 5, width: 20, height: 20}}
+                        />
                     </Typography>
                 </Box>
                 </Box>

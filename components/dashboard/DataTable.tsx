@@ -38,7 +38,11 @@ const rows = [
   createData('Cupcakee', 305, 3.7),
 ];
 
-export default function BasicTable({handleShowData}) {
+interface TableProps{
+  handleShowData() : void
+}
+
+const DataTable:React.FC<TableProps>= ({handleShowData}) => {
   const classes = useStyles();
 
   const [checked, setChecked] = React.useState(false);
@@ -69,7 +73,7 @@ export default function BasicTable({handleShowData}) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name} style={{height: 80}} className={ rowHoverd === row.name ? `${classes.rowStyle}` : null}>
+            <TableRow key={row.name} style={{height: 80}} className={ rowHoverd === row.name ? `${classes.rowStyle}` : undefined}>
               <TableCell component="th" scope="row" onMouseEnter={() => handleHover(row.name)} onMouseLeave={handleUndoHover} onClick={handleShowData}>
                <AdbIcon color="primary" style={{marginRight: 10, top: 5, position: 'relative'}} /> {row.name}
               </TableCell>
@@ -85,3 +89,6 @@ export default function BasicTable({handleShowData}) {
     </TableContainer>
   );
 }
+
+export default DataTable
+ 

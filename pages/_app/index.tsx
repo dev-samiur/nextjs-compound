@@ -2,9 +2,9 @@
 import * as React from "react";
 import App, { AppInitialProps, AppContext } from "next/app";
 import { Provider } from "react-redux";
-import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import theme from 'config/theme'
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import theme from "config/theme";
 import withRedux from "next-redux-wrapper";
 // #endregion Global Imports
 

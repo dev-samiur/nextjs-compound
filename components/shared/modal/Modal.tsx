@@ -41,7 +41,12 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({isOpen, handleModalClose}) {
+interface ModalProps{
+  isOpen: boolean
+  handleModalClose():void
+}
+
+const Modal:React.FC<ModalProps>= ({isOpen, handleModalClose}) => {
 
   const [open, setOpen] = useState(false);
 
@@ -92,3 +97,5 @@ export default function AlertDialogSlide({isOpen, handleModalClose}) {
     </div>
   );
 }
+
+export default Modal
