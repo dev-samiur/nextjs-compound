@@ -1,98 +1,51 @@
-// #region Global Imports
-import * as React from "react";
-import { NextPage } from "next";
-import { useSelector, useDispatch } from "react-redux";
-// #endregion Global Imports
+import React, { useState } from 'react'
+import Appbar from 'components/shared/nav'
+import Hero from 'components/dashboard/Hero'
+import DataTable from 'components/dashboard/DataTable'
+import Footer from 'components/dashboard/Footer'
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Modal from 'components/shared/modal/Modal'
 
-// #region Local Imports
-import { withTranslation } from "@Server/i18n";
-import {
-    Container,
-    Top,
-    TopText,
-    Middle,
-    MiddleLeft,
-    MiddleLeftButtons,
-    MiddleRight,
-    Apod,
-    ApodButton,
-} from "@Styled/Home";
-import { IStore } from "@Redux/IStore";
-import { HomeActions } from "@Actions";
-import { Heading, LocaleButton } from "@Components";
-// #endregion Local Imports
+export default function index() {
 
-// #region Interface Imports
-import { IHomePage, ReduxNextPageContext } from "@Interfaces";
-// #endregion Interface Imports
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matchesMd = useMediaQuery(theme.breakpoints.down('sm'));
 
-const Home: NextPage<IHomePage.IProps, IHomePage.InitialProps> = ({
-    t,
-    i18n,
-}) => {
-    const home = useSelector((state: IStore) => state.home);
-    const dispatch = useDispatch();
+  const [showModal, setShowModal]= useState<boolean>(false)
 
-    const renderLocaleButtons = (activeLanguage: string) =>
-        ["en", "es", "tr"].map(lang => (
-            <LocaleButton
-                key={lang}
-                lang={lang}
-                isActive={activeLanguage === lang}
-                onClick={() => i18n.changeLanguage(lang)}
-            />
-        ));
+  const handleModalClose= () => {
+    setShowModal(false)
+  }
 
-    return (
-        <Container>
-            <Top>
-                <img src="/images/pankod-logo.png" alt="Pankod Logo" />
-            </Top>
-            <Middle>
-                <MiddleLeft>
-                    <MiddleLeftButtons>
-                        {renderLocaleButtons(i18n.language)}
-                    </MiddleLeftButtons>
-                </MiddleLeft>
-                <MiddleRight>
-                    <TopText>{t("common:Hello")}</TopText>
-                    <Heading text={t("common:World")} />
-                    <Apod>
-                        <ApodButton
-                            onClick={() => {
-                                dispatch(
-                                    HomeActions.GetApod({
-                                        params: { hd: false },
-                                    })
-                                );
-                            }}
-                        >
-                            Discover Space
-                        </ApodButton>
-                        <img
-                            src={home.image.url}
-                            height="300"
-                            width="150"
-                            alt="Discover Space"
-                        />
-                    </Apod>
-                </MiddleRight>
-            </Middle>
-        </Container>
-    );
-};
+  const handleShowData= () => {
+    setShowModal(true)
+  }
 
-Home.getInitialProps = async (
-    ctx: ReduxNextPageContext
-): Promise<IHomePage.InitialProps> => {
-    await ctx.store.dispatch(
-        HomeActions.GetApod({
-            params: { hd: true },
-        })
-    );
-    return { namespacesRequired: ["common"] };
-};
-
-const Extended = withTranslation("common")(Home);
-
-export default Extended;
+  return (
+    <div>
+      <Appbar handleShowData={handleShowData}/>
+      <Hero/>
+      <Container style={{display: 'flex', flexDirection: matchesMd ? 'column' : 'row', marginTop: matches ? 50 : -70}}>
+        <Box flexGrow={1} borderRadius={5} display="flex" flexDirection="column">
+          <Box height={70} style={{background: '#FFF', borderTopLeftRadius: 5, borderTopRightRadius: 5}} display="flex" alignItems="center" pl={2} borderBottom="1px solid #e0e0e0">
+           <Typography variant="h6" style={{color: '#070A0E', fontWeight: 600}}>Supply Markets</Typography>
+          </Box>
+          <DataTable handleShowData={handleShowData} />
+        </Box>
+        <Box ml={matches ? 0 : 3} mt={matches ? 3 : 0} flexGrow={1} borderRadius={5} display="flex" flexDirection="column">
+          <Box height={70} style={{background: '#FFF', borderTopLeftRadius: 5, borderTopRightRadius: 5}} display="flex" alignItems="center" pl={2} borderBottom="1px solid #e0e0e0" >
+           <Typography variant="h6" style={{color: '#070A0E', fontWeight: 600}}>Supply Markets</Typography>
+          </Box>
+          <DataTable handleShowData={handleShowData} />
+        </Box>
+      </Container>
+      <Footer/>
+      <Modal isOpen={showModal} handleModalClose={handleModalClose}/>
+    </div>
+  )
+}

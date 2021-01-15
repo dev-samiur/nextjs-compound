@@ -19,6 +19,9 @@
     "build-storybook": "build-storybook -s ./public/static  -c .storybook -o .storybookout"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/data-grid": "^4.0.0-alpha.15",
+    "@material-ui/icons": "^4.11.2",
     "@next/bundle-analyzer": "^9.4.4",
     "autoprefixer": "^9.6.1",
     "bootstrap": "^4.5.2",
@@ -35,7 +38,9 @@
     "next-routes": "^1.4.2",
     "query-string": "^6.8.3",
     "react": "^16.13.1",
+    "react-country-flag": "^2.3.0",
     "react-dom": "^16.13.1",
+    "react-swipeable-views": "^0.13.9",
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",

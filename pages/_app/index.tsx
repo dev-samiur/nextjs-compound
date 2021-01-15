@@ -2,12 +2,13 @@
 import * as React from "react";
 import App, { AppInitialProps, AppContext } from "next/app";
 import { Provider } from "react-redux";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import theme from 'config/theme'
 import withRedux from "next-redux-wrapper";
 // #endregion Global Imports
 
 // #region Local Imports
-import { theme } from "@Definitions/Styled";
 import { appWithTranslation } from "@Server/i18n";
 import { AppWithStore } from "@Interfaces";
 import { makeStore } from "@Redux";
@@ -33,6 +34,7 @@ class WebApp extends App<AppWithStore> {
         return (
             <Provider store={store}>
                 <ThemeProvider theme={theme}>
+                    <CssBaseline />
                     <Component {...pageProps} />
                 </ThemeProvider>
             </Provider>
